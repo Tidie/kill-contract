@@ -4,27 +4,74 @@ import { useState, useEffect, useRef } from "react";
 //  DATA
 // ════════════════════════════════════════════════════════════════
 
+// Logo helper — Clearbit CDN (fiable, HTTPS, pas de CORS)
+const cl = (domain) => `https://logo.clearbit.com/${domain}`;
+
 const COMPANIES = [
-  { id:"tc-01", nom:"Orange",   cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg" },
-  { id:"tc-02", nom:"SFR",      cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/b/be/SFR_logo.svg" },
-  { id:"tc-03", nom:"Bouygues", cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/ce/Bouygues_Telecom_2015.svg" },
-  { id:"tc-04", nom:"Free",     cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/b/bd/Free_logo.svg" },
-  { id:"tc-10", nom:"Canal+",   cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/2/27/Canal%2B.svg" },
-  { id:"sp-01", nom:"Basic-Fit",cat:"Sport",     logo:"https://upload.wikimedia.org/wikipedia/commons/4/4b/Basic-Fit_Logo.svg" },
-  { id:"sp-04", nom:"Neoness",  cat:"Sport",     logo:"https://upload.wikimedia.org/wikipedia/fr/5/52/Logo_Neoness.png" },
-  { id:"as-01", nom:"AXA",      cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/9/94/AXA_Logo.svg" },
-  { id:"as-03", nom:"Allianz",  cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/d/d4/Allianz_Logo.svg" },
-  { id:"as-05", nom:"MAIF",     cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_MAIF.svg" },
-  { id:"en-01", nom:"EDF",      cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/1/12/EDF_logo.svg" },
-  { id:"en-02", nom:"Engie",    cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/c3/Engie_logo.svg" },
-  { id:"ps-04", nom:"Netflix",  cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
-  { id:"ps-07", nom:"Spotify",  cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" },
-  { id:"ps-05", nom:"Disney+",  cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" },
-  { id:"dv-03", nom:"Verisure", cat:"Divers",    logo:null },
-  { id:"dv-04", nom:"Nespresso",cat:"Divers",    logo:null },
+  // ── Télécom ──────────────────────────────────────────────────
+  { id:"tc-01", nom:"Orange",           cat:"Télécom",   logo:cl("orange.fr"),           color:"#FF6600" },
+  { id:"tc-02", nom:"SFR",              cat:"Télécom",   logo:cl("sfr.fr"),              color:"#E2001A" },
+  { id:"tc-03", nom:"Bouygues",         cat:"Télécom",   logo:cl("bouyguestelecom.fr"),  color:"#0097D6" },
+  { id:"tc-04", nom:"Free",             cat:"Télécom",   logo:cl("free.fr"),             color:"#CD1927" },
+  { id:"tc-05", nom:"Sosh",             cat:"Télécom",   logo:cl("sosh.fr"),             color:"#FF6600" },
+  { id:"tc-06", nom:"Red by SFR",       cat:"Télécom",   logo:cl("redsfr.fr"),           color:"#E2001A" },
+  { id:"tc-07", nom:"Coriolis",         cat:"Télécom",   logo:cl("coriolismobile.com"),  color:"#003087" },
+  { id:"tc-08", nom:"La Poste Mobile",  cat:"Télécom",   logo:cl("lapostemobile.fr"),    color:"#FFBE00" },
+  { id:"tc-09", nom:"NordNet",          cat:"Télécom",   logo:cl("nordnet.fr"),          color:"#0057A8" },
+  { id:"tc-10", nom:"Canal+",           cat:"Télécom",   logo:cl("canalplus.com"),       color:"#000000" },
+
+  // ── Sport ────────────────────────────────────────────────────
+  { id:"sp-01", nom:"Basic-Fit",        cat:"Sport",     logo:cl("basic-fit.com"),       color:"#FF6B00" },
+  { id:"sp-02", nom:"Fitness Park",     cat:"Sport",     logo:cl("fitnesspark.fr"),      color:"#E31E24" },
+  { id:"sp-03", nom:"Keepcool",         cat:"Sport",     logo:cl("keepcool.fr"),         color:"#00A8E0" },
+  { id:"sp-04", nom:"Neoness",          cat:"Sport",     logo:cl("neoness.fr"),          color:"#E2001A" },
+  { id:"sp-05", nom:"L'Orange Bleue",   cat:"Sport",     logo:cl("lorangebleue.fr"),     color:"#F47920" },
+  { id:"sp-06", nom:"Magic Form",       cat:"Sport",     logo:cl("magicform.fr"),        color:"#7B2D8B" },
+  { id:"sp-07", nom:"Gigafit",          cat:"Sport",     logo:cl("gigafit.fr"),          color:"#FF0000" },
+  { id:"sp-08", nom:"On Air Fitness",   cat:"Sport",     logo:cl("onairfitness.fr"),     color:"#00BCD4" },
+  { id:"sp-09", nom:"Freeness",         cat:"Sport",     logo:cl("freeness.fr"),         color:"#4CAF50" },
+  { id:"sp-10", nom:"Cercles de la Forme", cat:"Sport",  logo:cl("cerclesdelaforme.com"),color:"#1565C0" },
+
+  // ── Assurance ────────────────────────────────────────────────
+  { id:"as-01", nom:"AXA",              cat:"Assurance", logo:cl("axa.fr"),              color:"#00008F" },
+  { id:"as-02", nom:"Generali",         cat:"Assurance", logo:cl("generali.fr"),         color:"#CC0000" },
+  { id:"as-03", nom:"Allianz",          cat:"Assurance", logo:cl("allianz.fr"),          color:"#003781" },
+  { id:"as-04", nom:"Groupama",         cat:"Assurance", logo:cl("groupama.fr"),         color:"#008A00" },
+  { id:"as-05", nom:"MAIF",             cat:"Assurance", logo:cl("maif.fr"),             color:"#E2001A" },
+  { id:"as-06", nom:"MACIF",            cat:"Assurance", logo:cl("macif.fr"),            color:"#E2001A" },
+  { id:"as-07", nom:"Matmut",           cat:"Assurance", logo:cl("matmut.fr"),           color:"#009B77" },
+  { id:"as-08", nom:"Direct Assurance", cat:"Assurance", logo:cl("direct-assurance.fr"), color:"#E2001A" },
+  { id:"as-09", nom:"Amaguiz",          cat:"Assurance", logo:cl("amaguiz.com"),         color:"#FF6600" },
+  { id:"as-10", nom:"Alan",             cat:"Assurance", logo:cl("alan.com"),            color:"#1DB954" },
+
+  // ── Énergie ──────────────────────────────────────────────────
+  { id:"en-01", nom:"EDF",              cat:"Énergie",   logo:cl("edf.fr"),              color:"#F7A600" },
+  { id:"en-02", nom:"Engie",            cat:"Énergie",   logo:cl("engie.fr"),            color:"#00AAFF" },
+  { id:"en-03", nom:"TotalEnergies",    cat:"Énergie",   logo:cl("totalenergies.fr"),    color:"#EE3124" },
+  { id:"en-04", nom:"Eni",              cat:"Énergie",   logo:cl("eni.com"),             color:"#FFD700" },
+  { id:"en-05", nom:"Vattenfall",       cat:"Énergie",   logo:cl("vattenfall.fr"),       color:"#006AC7" },
+  { id:"en-06", nom:"Suez",             cat:"Énergie",   logo:cl("suez.com"),            color:"#009FE3" },
+  { id:"en-07", nom:"Veolia",           cat:"Énergie",   logo:cl("veolia.com"),          color:"#005F96" },
+  { id:"en-08", nom:"Sowee",            cat:"Énergie",   logo:cl("sowee.com"),           color:"#00C1D4" },
+
+  // ── Streaming & Presse ───────────────────────────────────────
+  { id:"ps-01", nom:"Le Monde",         cat:"Streaming", logo:cl("lemonde.fr"),          color:"#1A1A1A" },
+  { id:"ps-02", nom:"Le Figaro",        cat:"Streaming", logo:cl("lefigaro.fr"),         color:"#003878" },
+  { id:"ps-03", nom:"L'Équipe",         cat:"Streaming", logo:cl("lequipe.fr"),          color:"#FFCC00" },
+  { id:"ps-04", nom:"Netflix",          cat:"Streaming", logo:cl("netflix.com"),         color:"#E50914" },
+  { id:"ps-05", nom:"Disney+",          cat:"Streaming", logo:cl("disneyplus.com"),      color:"#0063E5" },
+  { id:"ps-06", nom:"Deezer",           cat:"Streaming", logo:cl("deezer.com"),          color:"#A238FF" },
+  { id:"ps-07", nom:"Spotify",          cat:"Streaming", logo:cl("spotify.com"),         color:"#1DB954" },
+  { id:"ps-08", nom:"beIN Sports",      cat:"Streaming", logo:cl("beinsports.com"),      color:"#E4002B" },
+
+  // ── Divers ───────────────────────────────────────────────────
+  { id:"dv-01", nom:"Ulys / Vinci",     cat:"Divers",    logo:cl("ulys.com"),            color:"#E4002B" },
+  { id:"dv-02", nom:"Coyote",           cat:"Divers",    logo:cl("moncoyote.com"),       color:"#FF6600" },
+  { id:"dv-03", nom:"Verisure",         cat:"Divers",    logo:cl("verisure.fr"),         color:"#E2001A" },
+  { id:"dv-04", nom:"Nespresso",        cat:"Divers",    logo:cl("nespresso.com"),       color:"#1A1A1A" },
 ];
 
-const FEATURED = ["tc-01","tc-02","tc-03","tc-04","sp-01","as-01","en-01","ps-04"];
+const FEATURED = ["tc-01","tc-02","tc-03","tc-04","sp-01","as-01","en-01","ps-04","en-03","as-03","dv-03","ps-07"];
 
 const MOTIFS = [
   { value:"hamon",  icon:"🔓", label:"Résiliation libre",  badge:"Loi Hamon",    badgeC:"#1D4ED8", badgeBg:"#DBEAFE", desc:"Après 12 mois d'engagement, sans frais ni justification.", loi:"Art. L.215-1 Code de la consommation" },
@@ -89,10 +136,10 @@ const GLOBAL_CSS = `
   /* Logo card */
   .logo-card { transition: all 0.4s cubic-bezier(0.16,1,0.3,1); border: 1px solid transparent; cursor: pointer; }
   .logo-card:hover { border-color: #0A192F; transform: translateY(-4px); background: white !important; }
-  .logo-card img { filter: grayscale(100%); opacity: 0.6; transition: all 0.3s ease; }
+  .logo-card img { filter: grayscale(80%); opacity: 0.65; transition: all 0.3s ease; }
   .logo-card:hover img { filter: grayscale(0%); opacity: 1; }
   .logo-card.selected { border-color: #0A192F !important; background: #0A192F !important; transform: translateY(-3px); }
-  .logo-card.selected img { filter: brightness(0) invert(1); opacity: 0.9; }
+  .logo-card.selected img { filter: brightness(0) invert(1); opacity: 0.95; }
 
   /* Scanner animation */
   @keyframes scan {
@@ -265,16 +312,31 @@ const TacticalLabels = () => (
 //  PAGE LANDING (copie fidèle du HTML)
 // ════════════════════════════════════════════════════════════════
 
+const CAT_META = {
+  "Tous":     { emoji:"🔍", dot:"#94A3B8" },
+  "Télécom":  { emoji:"📡", dot:"#3B82F6" },
+  "Sport":    { emoji:"🏋️", dot:"#22C55E" },
+  "Assurance":{ emoji:"🛡️", dot:"#F97316" },
+  "Énergie":  { emoji:"⚡", dot:"#EAB308" },
+  "Streaming":{ emoji:"📺", dot:"#D946EF" },
+  "Divers":   { emoji:"🔧", dot:"#94A3B8" },
+};
+const ALL_CATS = ["Tous","Télécom","Sport","Assurance","Énergie","Streaming","Divers"];
+
 function PageLanding({ setView, onSelect }) {
   const [search, setSearch] = useState("");
+  const [cat, setCat] = useState("Tous");
   const [selected, setSelected] = useState(null);
   const [logoErr, setLogoErr] = useState({});
   const [showAll, setShowAll] = useState(false);
 
-  const filtered = COMPANIES.filter(c =>
-    c.nom.toLowerCase().includes(search.toLowerCase())
-  );
-  const displayed = search || showAll ? filtered : filtered.filter(c => FEATURED.includes(c.id));
+  const filtered = COMPANIES.filter(c => {
+    const matchSearch = c.nom.toLowerCase().includes(search.toLowerCase());
+    const matchCat = cat === "Tous" || c.cat === cat;
+    return matchSearch && matchCat;
+  });
+  const isFiltering = search || cat !== "Tous" || showAll;
+  const displayed = isFiltering ? filtered : filtered.filter(c => FEATURED.includes(c.id));
 
   return (
     <div className="noise" style={{minHeight:"100vh",display:"flex",flexDirection:"column",background:C.bg}}>
@@ -324,31 +386,57 @@ function PageLanding({ setView, onSelect }) {
             </button>
           </div>
 
+          {/* Category filters */}
+          <div style={{display:"flex",gap:"8px",flexWrap:"wrap",justifyContent:"center",marginBottom:"28px",marginTop:"-20px"}}>
+            {ALL_CATS.map(c => {
+              const isA = cat === c;
+              const meta = CAT_META[c];
+              return (
+                <button key={c} onClick={()=>{setCat(c);setShowAll(false);setSelected(null);}} style={{display:"flex",alignItems:"center",gap:"6px",padding:"7px 16px",borderRadius:"999px",cursor:"pointer",fontSize:"12px",fontWeight:700,border:`1.5px solid ${isA?C.navy:C.border}`,background:isA?C.navy:"white",color:isA?"white":C.slate,transition:"all .2s",fontFamily:"inherit",whiteSpace:"nowrap"}}>
+                  <span>{meta.emoji}</span>
+                  {c}
+                  {c !== "Tous" && (
+                    <span style={{fontSize:"10px",opacity:.6,fontWeight:600}}>{COMPANIES.filter(x=>x.cat===c).length}</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
           {/* Provider grid */}
           <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"16px"}}>
             {displayed.map(co => {
               const isSel = selected?.id===co.id;
               const hasLogo = co.logo && !logoErr[co.id];
+              const brandColor = co.color || "#64748B";
               return (
                 <div
                   key={co.id}
                   className={`logo-card${isSel?" selected":""}`}
                   onClick={()=>setSelected(s=>s?.id===co.id?null:co)}
-                  style={{padding:"24px 12px",borderRadius:"16px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"14px",background:"#F8FAFC",position:"relative",overflow:"hidden"}}
+                  style={{padding:"20px 10px",borderRadius:"16px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"12px",background:"white",position:"relative",overflow:"hidden",minHeight:"110px"}}
                 >
                   {isSel && <div className="scanner-line"/>}
-                  <div style={{height:"48px",width:"96px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                  <div style={{height:"44px",width:"88px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                     {hasLogo ? (
-                      <img src={co.logo} alt={co.nom} onError={()=>setLogoErr(e=>({...e,[co.id]:true}))} style={{maxHeight:"100%",maxWidth:"100%",objectFit:"contain"}}/>
+                      <img
+                        src={co.logo}
+                        alt={co.nom}
+                        onError={()=>setLogoErr(e=>({...e,[co.id]:true}))}
+                        style={{maxHeight:"100%",maxWidth:"100%",objectFit:"contain",transition:"all .25s"}}
+                      />
                     ) : (
-                      <div style={{width:"40px",height:"40px",borderRadius:"10px",background:isSel?"rgba(0,255,65,.15)":"#E2E8F0",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"13px",fontWeight:900,color:isSel?C.green:C.slate}}>
+                      <div style={{width:"44px",height:"44px",borderRadius:"12px",background:isSel?`${brandColor}22`:`${brandColor}18`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"15px",fontWeight:900,color:isSel?brandColor:brandColor,border:`1px solid ${brandColor}30`}}>
                         {co.nom.slice(0,2).toUpperCase()}
                       </div>
                     )}
                   </div>
                   <div style={{textAlign:"center"}}>
-                    <p style={{fontSize:"11px",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.1em",color:isSel?"white":C.navy}}>{co.nom}</p>
-                    <p style={{fontSize:"10px",color:isSel?"rgba(255,255,255,.5)":C.muted,fontWeight:500,marginTop:"2px"}}>{co.cat}</p>
+                    <p style={{fontSize:"10px",fontWeight:800,textTransform:"uppercase",letterSpacing:"0.08em",color:isSel?"white":C.navy,lineHeight:1.2}}>{co.nom}</p>
+                    <p style={{fontSize:"9px",color:isSel?"rgba(255,255,255,.45)":C.muted,fontWeight:500,marginTop:"3px",display:"flex",alignItems:"center",justifyContent:"center",gap:"3px"}}>
+                      <span style={{display:"inline-block",width:"4px",height:"4px",borderRadius:"50%",background:isSel?"rgba(0,255,65,.6)":CAT_META[co.cat]?.dot||"#94A3B8"}}/>
+                      {co.cat}
+                    </p>
                   </div>
                 </div>
               );
@@ -364,11 +452,19 @@ function PageLanding({ setView, onSelect }) {
           )}
 
           {/* Show all */}
-          {!search && (
-            <div style={{textAlign:"center",marginTop:"24px"}}>
+          {!search && cat === "Tous" && (
+            <div style={{textAlign:"center",marginTop:"20px"}}>
               <button onClick={()=>setShowAll(v=>!v)} style={{background:"none",border:"none",cursor:"pointer",fontSize:"13px",color:C.slate,fontFamily:"inherit"}}>
-                {showAll?"← Réduire le catalogue":<span><span style={{opacity:.65}}>{COMPANIES.length-FEATURED.length} autres disponibles</span> — <span style={{fontWeight:700,color:C.navy,textDecoration:"underline",textUnderlineOffset:"3px"}}>Voir tout →</span></span>}
+                {showAll
+                  ? "← Réduire le catalogue"
+                  : <span><span style={{opacity:.65}}>{COMPANIES.length - FEATURED.length} autres prestataires</span> — <span style={{fontWeight:700,color:C.navy,textDecoration:"underline",textUnderlineOffset:"3px"}}>Voir tout le catalogue ({COMPANIES.length}) →</span></span>
+                }
               </button>
+            </div>
+          )}
+          {cat !== "Tous" && (
+            <div style={{textAlign:"center",marginTop:"12px"}}>
+              <p style={{fontSize:"12px",color:C.muted}}>{filtered.length} prestataire{filtered.length>1?"s":""} dans <strong style={{color:C.navy}}>{cat}</strong></p>
             </div>
           )}
 
