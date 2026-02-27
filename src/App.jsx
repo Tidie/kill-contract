@@ -4,74 +4,72 @@ import { useState, useEffect, useRef } from "react";
 //  DATA
 // ════════════════════════════════════════════════════════════════
 
-// Logo helper — Clearbit CDN (fiable, HTTPS, pas de CORS)
-const cl = (domain) => `https://logo.clearbit.com/${domain}`;
-
 const COMPANIES = [
   // ── Télécom ──────────────────────────────────────────────────
-  { id:"tc-01", nom:"Orange",           cat:"Télécom",   logo:cl("orange.fr"),           color:"#FF6600" },
-  { id:"tc-02", nom:"SFR",              cat:"Télécom",   logo:cl("sfr.fr"),              color:"#E2001A" },
-  { id:"tc-03", nom:"Bouygues",         cat:"Télécom",   logo:cl("bouyguestelecom.fr"),  color:"#0097D6" },
-  { id:"tc-04", nom:"Free",             cat:"Télécom",   logo:cl("free.fr"),             color:"#CD1927" },
-  { id:"tc-05", nom:"Sosh",             cat:"Télécom",   logo:cl("sosh.fr"),             color:"#FF6600" },
-  { id:"tc-06", nom:"Red by SFR",       cat:"Télécom",   logo:cl("redsfr.fr"),           color:"#E2001A" },
-  { id:"tc-07", nom:"Coriolis",         cat:"Télécom",   logo:cl("coriolismobile.com"),  color:"#003087" },
-  { id:"tc-08", nom:"La Poste Mobile",  cat:"Télécom",   logo:cl("lapostemobile.fr"),    color:"#FFBE00" },
-  { id:"tc-09", nom:"NordNet",          cat:"Télécom",   logo:cl("nordnet.fr"),          color:"#0057A8" },
-  { id:"tc-10", nom:"Canal+",           cat:"Télécom",   logo:cl("canalplus.com"),       color:"#000000" },
+  { id:"tc-01", nom:"Orange",           cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg",                      color:"#FF6600" },
+  { id:"tc-02", nom:"SFR",              cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/b/be/SFR_logo.svg",                         color:"#E2001A" },
+  { id:"tc-03", nom:"Bouygues",         cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/ce/Bouygues_Telecom_2015.svg",            color:"#0097D6" },
+  { id:"tc-04", nom:"Free",             cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/b/bd/Free_logo.svg",                        color:"#CD1927" },
+  { id:"tc-05", nom:"Sosh",             cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/5/5d/Sosh_logo_2020.svg",                   color:"#FF6600" },
+  { id:"tc-06", nom:"Red by SFR",       cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/fr/4/43/Red_by_SFR_Logo.svg",               color:"#E2001A" },
+  { id:"tc-07", nom:"Coriolis",         cat:"Télécom",   logo:"https://www.google.com/s2/favicons?domain=coriolismobile.com&sz=256",                     color:"#003087" },
+  { id:"tc-08", nom:"La Poste Mobile",  cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/7/72/La_Poste_logo.svg",                   color:"#FFBE00" },
+  { id:"tc-09", nom:"NordNet",          cat:"Télécom",   logo:"https://www.google.com/s2/favicons?domain=nordnet.fr&sz=256",                             color:"#0057A8" },
+  { id:"tc-10", nom:"Canal+",           cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/2/27/Canal%2B.svg",                        color:"#000000" },
 
   // ── Sport ────────────────────────────────────────────────────
-  { id:"sp-01", nom:"Basic-Fit",        cat:"Sport",     logo:cl("basic-fit.com"),       color:"#FF6B00" },
-  { id:"sp-02", nom:"Fitness Park",     cat:"Sport",     logo:cl("fitnesspark.fr"),      color:"#E31E24" },
-  { id:"sp-03", nom:"Keepcool",         cat:"Sport",     logo:cl("keepcool.fr"),         color:"#00A8E0" },
-  { id:"sp-04", nom:"Neoness",          cat:"Sport",     logo:cl("neoness.fr"),          color:"#E2001A" },
-  { id:"sp-05", nom:"L'Orange Bleue",   cat:"Sport",     logo:cl("lorangebleue.fr"),     color:"#F47920" },
-  { id:"sp-06", nom:"Magic Form",       cat:"Sport",     logo:cl("magicform.fr"),        color:"#7B2D8B" },
-  { id:"sp-07", nom:"Gigafit",          cat:"Sport",     logo:cl("gigafit.fr"),          color:"#FF0000" },
-  { id:"sp-08", nom:"On Air Fitness",   cat:"Sport",     logo:cl("onairfitness.fr"),     color:"#00BCD4" },
-  { id:"sp-09", nom:"Freeness",         cat:"Sport",     logo:cl("freeness.fr"),         color:"#4CAF50" },
-  { id:"sp-10", nom:"Cercles de la Forme", cat:"Sport",  logo:cl("cerclesdelaforme.com"),color:"#1565C0" },
+  { id:"sp-01", nom:"Basic-Fit",        cat:"Sport",     logo:"https://upload.wikimedia.org/wikipedia/commons/4/4b/Basic-Fit_Logo.svg",                   color:"#FF6B00" },
+  { id:"sp-02", nom:"Fitness Park",     cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=fitnesspark.fr&sz=256",                         color:"#E31E24" },
+  { id:"sp-03", nom:"Keepcool",         cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=keepcool.fr&sz=256",                            color:"#00A8E0" },
+  { id:"sp-04", nom:"Neoness",          cat:"Sport",     logo:"https://upload.wikimedia.org/wikipedia/fr/5/52/Logo_Neoness.png",                  color:"#E2001A" },
+  { id:"sp-05", nom:"L'Orange Bleue",   cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=lorangebleue.fr&sz=256",                        color:"#F47920" },
+  { id:"sp-06", nom:"Magic Form",       cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=magicform.fr&sz=256",                           color:"#7B2D8B" },
+  { id:"sp-07", nom:"Gigafit",          cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=gigafit.fr&sz=256",                             color:"#FF0000" },
+  { id:"sp-08", nom:"On Air Fitness",   cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=onairfitness.fr&sz=256",                        color:"#00BCD4" },
+  { id:"sp-09", nom:"Freeness",         cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=freeness.fr&sz=256",                            color:"#4CAF50" },
+  { id:"sp-10", nom:"Cercles de la Forme", cat:"Sport",  logo:"https://www.google.com/s2/favicons?domain=cerclesdelaforme.com&sz=256",                   color:"#1565C0" },
 
   // ── Assurance ────────────────────────────────────────────────
-  { id:"as-01", nom:"AXA",              cat:"Assurance", logo:cl("axa.fr"),              color:"#00008F" },
-  { id:"as-02", nom:"Generali",         cat:"Assurance", logo:cl("generali.fr"),         color:"#CC0000" },
-  { id:"as-03", nom:"Allianz",          cat:"Assurance", logo:cl("allianz.fr"),          color:"#003781" },
-  { id:"as-04", nom:"Groupama",         cat:"Assurance", logo:cl("groupama.fr"),         color:"#008A00" },
-  { id:"as-05", nom:"MAIF",             cat:"Assurance", logo:cl("maif.fr"),             color:"#E2001A" },
-  { id:"as-06", nom:"MACIF",            cat:"Assurance", logo:cl("macif.fr"),            color:"#E2001A" },
-  { id:"as-07", nom:"Matmut",           cat:"Assurance", logo:cl("matmut.fr"),           color:"#009B77" },
-  { id:"as-08", nom:"Direct Assurance", cat:"Assurance", logo:cl("direct-assurance.fr"), color:"#E2001A" },
-  { id:"as-09", nom:"Amaguiz",          cat:"Assurance", logo:cl("amaguiz.com"),         color:"#FF6600" },
-  { id:"as-10", nom:"Alan",             cat:"Assurance", logo:cl("alan.com"),            color:"#1DB954" },
+  { id:"as-01", nom:"AXA",              cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/9/94/AXA_Logo.svg",                         color:"#00008F" },
+  { id:"as-02", nom:"Generali",         cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/0/0c/Generali_logo.svg",                    color:"#CC0000" },
+  { id:"as-03", nom:"Allianz",          cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/d/d4/Allianz_Logo.svg",                     color:"#003781" },
+  { id:"as-04", nom:"Groupama",         cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Groupama_logo.svg",                    color:"#008A00" },
+  { id:"as-05", nom:"MAIF",             cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_MAIF.svg",                        color:"#E2001A" },
+  { id:"as-06", nom:"MACIF",            cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/f/f9/Logo_MACIF.svg",                       color:"#E2001A" },
+  { id:"as-07", nom:"Matmut",           cat:"Assurance", logo:"https://www.google.com/s2/favicons?domain=matmut.fr&sz=256",                              color:"#009B77" },
+  { id:"as-08", nom:"Direct Assurance", cat:"Assurance", logo:"https://www.google.com/s2/favicons?domain=direct-assurance.fr&sz=256",                    color:"#E2001A" },
+  { id:"as-09", nom:"Amaguiz",          cat:"Assurance", logo:"https://www.google.com/s2/favicons?domain=amaguiz.com&sz=256",                            color:"#FF6600" },
+  { id:"as-10", nom:"Alan",             cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/7/72/Alan_logo.svg",                        color:"#00D4B4" },
 
   // ── Énergie ──────────────────────────────────────────────────
-  { id:"en-01", nom:"EDF",              cat:"Énergie",   logo:cl("edf.fr"),              color:"#F7A600" },
-  { id:"en-02", nom:"Engie",            cat:"Énergie",   logo:cl("engie.fr"),            color:"#00AAFF" },
-  { id:"en-03", nom:"TotalEnergies",    cat:"Énergie",   logo:cl("totalenergies.fr"),    color:"#EE3124" },
-  { id:"en-04", nom:"Eni",              cat:"Énergie",   logo:cl("eni.com"),             color:"#FFD700" },
-  { id:"en-05", nom:"Vattenfall",       cat:"Énergie",   logo:cl("vattenfall.fr"),       color:"#006AC7" },
-  { id:"en-06", nom:"Suez",             cat:"Énergie",   logo:cl("suez.com"),            color:"#009FE3" },
-  { id:"en-07", nom:"Veolia",           cat:"Énergie",   logo:cl("veolia.com"),          color:"#005F96" },
-  { id:"en-08", nom:"Sowee",            cat:"Énergie",   logo:cl("sowee.com"),           color:"#00C1D4" },
+  { id:"en-01", nom:"EDF",              cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/1/12/EDF_logo.svg",                         color:"#F7A600" },
+  { id:"en-02", nom:"Engie",            cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/c3/Engie_logo.svg",                       color:"#00AAFF" },
+  { id:"en-03", nom:"TotalEnergies",    cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/3/3f/TotalEnergies_logo.svg",               color:"#EE3124" },
+  { id:"en-04", nom:"Eni",              cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/d/d9/Eni_logo.svg",                         color:"#FFD700" },
+  { id:"en-05", nom:"Vattenfall",       cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/5/5b/Vattenfall_logo.svg",                  color:"#006AC7" },
+  { id:"en-06", nom:"Suez",             cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/1/17/Suez_logo.svg",                        color:"#009FE3" },
+  { id:"en-07", nom:"Veolia",           cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/9/95/Veolia_logo.svg",                      color:"#005F96" },
+  { id:"en-08", nom:"Sowee",            cat:"Énergie",   logo:"https://www.google.com/s2/favicons?domain=sowee.com&sz=256",                              color:"#00C1D4" },
 
   // ── Streaming & Presse ───────────────────────────────────────
-  { id:"ps-01", nom:"Le Monde",         cat:"Streaming", logo:cl("lemonde.fr"),          color:"#1A1A1A" },
-  { id:"ps-02", nom:"Le Figaro",        cat:"Streaming", logo:cl("lefigaro.fr"),         color:"#003878" },
-  { id:"ps-03", nom:"L'Équipe",         cat:"Streaming", logo:cl("lequipe.fr"),          color:"#FFCC00" },
-  { id:"ps-04", nom:"Netflix",          cat:"Streaming", logo:cl("netflix.com"),         color:"#E50914" },
-  { id:"ps-05", nom:"Disney+",          cat:"Streaming", logo:cl("disneyplus.com"),      color:"#0063E5" },
-  { id:"ps-06", nom:"Deezer",           cat:"Streaming", logo:cl("deezer.com"),          color:"#A238FF" },
-  { id:"ps-07", nom:"Spotify",          cat:"Streaming", logo:cl("spotify.com"),         color:"#1DB954" },
-  { id:"ps-08", nom:"beIN Sports",      cat:"Streaming", logo:cl("beinsports.com"),      color:"#E4002B" },
+  { id:"ps-01", nom:"Le Monde",         cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/f/fc/Le_Monde_logo.svg",                    color:"#1A1A1A" },
+  { id:"ps-02", nom:"Le Figaro",        cat:"Streaming", logo:"https://www.google.com/s2/favicons?domain=lefigaro.fr&sz=256",                            color:"#003878" },
+  { id:"ps-03", nom:"L'Équipe",         cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/9/9d/L%27%C3%89quipe_logo.svg",            color:"#FFCC00" },
+  { id:"ps-04", nom:"Netflix",          cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",                color:"#E50914" },
+  { id:"ps-05", nom:"Disney+",          cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",                   color:"#0063E5" },
+  { id:"ps-06", nom:"Deezer",           cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/e/e7/Deezer_logo_2023.svg",                 color:"#A238FF" },
+  { id:"ps-07", nom:"Spotify",          cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",           color:"#1DB954" },
+  { id:"ps-08", nom:"beIN Sports",      cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/f/f4/BeIN_SPORTS_logo.svg",                 color:"#E4002B" },
 
   // ── Divers ───────────────────────────────────────────────────
-  { id:"dv-01", nom:"Ulys / Vinci",     cat:"Divers",    logo:cl("ulys.com"),            color:"#E4002B" },
-  { id:"dv-02", nom:"Coyote",           cat:"Divers",    logo:cl("moncoyote.com"),       color:"#FF6600" },
-  { id:"dv-03", nom:"Verisure",         cat:"Divers",    logo:cl("verisure.fr"),         color:"#E2001A" },
-  { id:"dv-04", nom:"Nespresso",        cat:"Divers",    logo:cl("nespresso.com"),       color:"#1A1A1A" },
+  { id:"dv-01", nom:"Ulys / Vinci",     cat:"Divers",    logo:"https://upload.wikimedia.org/wikipedia/commons/b/b1/Vinci_logo.svg",                       color:"#E4002B" },
+  { id:"dv-02", nom:"Coyote",           cat:"Divers",    logo:"https://www.google.com/s2/favicons?domain=moncoyote.com&sz=256",                          color:"#FF6600" },
+  { id:"dv-03", nom:"Verisure",         cat:"Divers",    logo:"https://www.google.com/s2/favicons?domain=verisure.fr&sz=256",                            color:"#E2001A" },
+  { id:"dv-04", nom:"Nespresso",        cat:"Divers",    logo:"https://upload.wikimedia.org/wikipedia/commons/6/69/Nespresso-logo.svg",                   color:"#1A1A1A" },
 ];
 
-const FEATURED = ["tc-01","tc-02","tc-03","tc-04","sp-01","as-01","en-01","ps-04","en-03","as-03","dv-03","ps-07"];
+// 8 companies featured on landing — the rest in catalogue
+const FEATURED = ["tc-01","tc-02","sp-01","ps-04","as-01","en-01","ps-07","dv-03"];
 
 const MOTIFS = [
   { value:"hamon",  icon:"🔓", label:"Résiliation libre",  badge:"Loi Hamon",    badgeC:"#1D4ED8", badgeBg:"#DBEAFE", desc:"Après 12 mois d'engagement, sans frais ni justification.", loi:"Art. L.215-1 Code de la consommation" },
@@ -237,6 +235,7 @@ function Nav({ view, setView, resiliations }) {
       <Logo onClick={()=>setView("landing")}/>
       <div style={{display:"flex",gap:"32px",alignItems:"center"}}>
         {!isApp && <>
+          <a onClick={()=>setView("catalogue")} className={`nav-link${view==="catalogue"?" active":""}`} style={{cursor:"pointer",display:"flex",alignItems:"center",gap:"5px"}}>Catalogue <span style={{fontSize:"9px",fontWeight:800,padding:"1px 6px",borderRadius:"999px",background:"#F1F5F9",color:"#64748B"}}>{COMPANIES.length}</span></a>
           <a onClick={()=>setView("comment")} className={`nav-link${view==="comment"?" active":""}`} style={{cursor:"pointer"}}>Comment ça marche</a>
           <a onClick={()=>setView("tarifs")}  className={`nav-link${view==="tarifs"?" active":""}`}  style={{cursor:"pointer"}}>Tarifs</a>
           <a onClick={()=>setView("securite")}className={`nav-link${view==="securite"?" active":""}`}style={{cursor:"pointer"}}>Sécurité</a>
@@ -309,7 +308,7 @@ const TacticalLabels = () => (
 );
 
 // ════════════════════════════════════════════════════════════════
-//  PAGE LANDING (copie fidèle du HTML)
+//  SHARED CATALOGUE DATA
 // ════════════════════════════════════════════════════════════════
 
 const CAT_META = {
@@ -323,176 +322,189 @@ const CAT_META = {
 };
 const ALL_CATS = ["Tous","Télécom","Sport","Assurance","Énergie","Streaming","Divers"];
 
+// Reusable company card
+function CompanyCard({ co, isSel, onSelect, logoErr, setLogoErr }) {
+  const brandColor = co.color || "#64748B";
+  const hasLogo = co.logo && !logoErr[co.id];
+  return (
+    <div
+      className={`logo-card${isSel?" selected":""}`}
+      onClick={()=>onSelect(co)}
+      style={{padding:"24px 16px",borderRadius:"18px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"14px",background:"white",position:"relative",overflow:"hidden",minHeight:"130px",cursor:"pointer"}}
+    >
+      {isSel && <div className="scanner-line"/>}
+      {isSel && (
+        <div style={{position:"absolute",top:"10px",right:"10px",width:"20px",height:"20px",borderRadius:"50%",background:"#00FF41",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="#0A192F" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+      )}
+      <div style={{height:"52px",width:"100px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+        {hasLogo ? (
+          <img
+            src={co.logo}
+            alt={co.nom}
+            onError={()=>setLogoErr(e=>({...e,[co.id]:true}))}
+            style={{maxHeight:"100%",maxWidth:"100%",objectFit:"contain",transition:"all .25s"}}
+          />
+        ) : (
+          <div style={{width:"52px",height:"52px",borderRadius:"14px",background:`${brandColor}18`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"16px",fontWeight:900,color:brandColor,border:`1.5px solid ${brandColor}25`}}>
+            {co.nom.slice(0,2).toUpperCase()}
+          </div>
+        )}
+      </div>
+      <div style={{textAlign:"center"}}>
+        <p style={{fontSize:"11px",fontWeight:800,textTransform:"uppercase",letterSpacing:"0.06em",color:isSel?"white":"#0A192F",lineHeight:1.2}}>{co.nom}</p>
+        <p style={{fontSize:"9px",fontWeight:500,marginTop:"4px",display:"flex",alignItems:"center",justifyContent:"center",gap:"3px",color:isSel?"rgba(255,255,255,.45)":"#94A3B8"}}>
+          <span style={{display:"inline-block",width:"5px",height:"5px",borderRadius:"50%",background:isSel?"rgba(0,255,65,.7)":CAT_META[co.cat]?.dot||"#94A3B8"}}/>
+          {co.cat}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  PAGE LANDING
+// ════════════════════════════════════════════════════════════════
+
 function PageLanding({ setView, onSelect }) {
-  const [search, setSearch] = useState("");
-  const [cat, setCat] = useState("Tous");
   const [selected, setSelected] = useState(null);
   const [logoErr, setLogoErr] = useState({});
-  const [showAll, setShowAll] = useState(false);
+  const featured = COMPANIES.filter(c => FEATURED.includes(c.id));
 
-  const filtered = COMPANIES.filter(c => {
-    const matchSearch = c.nom.toLowerCase().includes(search.toLowerCase());
-    const matchCat = cat === "Tous" || c.cat === cat;
-    return matchSearch && matchCat;
-  });
-  const isFiltering = search || cat !== "Tous" || showAll;
-  const displayed = isFiltering ? filtered : filtered.filter(c => FEATURED.includes(c.id));
+  const handleSelect = (co) => {
+    if (selected?.id === co.id) { setSelected(null); }
+    else { setSelected(co); }
+  };
 
   return (
-    <div className="noise" style={{minHeight:"100vh",display:"flex",flexDirection:"column",background:C.bg}}>
+    <div className="noise" style={{minHeight:"100vh",display:"flex",flexDirection:"column",background:"#F8FAFC"}}>
       <Nav view="landing" setView={setView} resiliations={[]}/>
 
-      <main style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"0 24px",position:"relative",paddingBottom:"48px"}}>
-        {/* Background glow */}
-        <div style={{position:"absolute",top:0,left:"50%",transform:"translateX(-50%)",width:"800px",height:"400px",background:"rgba(219,234,254,0.3)",filter:"blur(120px)",borderRadius:"50%",zIndex:0,pointerEvents:"none"}}/>
+      <main style={{flex:1,display:"flex",flexDirection:"column",padding:"0 48px 64px",maxWidth:"1280px",margin:"0 auto",width:"100%"}}>
+        {/* Hero — full width centered */}
+        <div style={{textAlign:"center",padding:"72px 0 56px",position:"relative"}} className="fade-up">
+          {/* Background glow */}
+          <div style={{position:"absolute",top:"0",left:"50%",transform:"translateX(-50%)",width:"900px",height:"500px",background:"rgba(219,234,254,0.25)",filter:"blur(140px)",borderRadius:"50%",zIndex:0,pointerEvents:"none"}}/>
+          <div style={{position:"relative",zIndex:1}}>
+            {/* Badge */}
+            <div style={{display:"inline-flex",alignItems:"center",gap:"8px",padding:"5px 14px",background:"white",border:"1px solid #E2E8F0",borderRadius:"999px",boxShadow:"0 1px 4px rgba(10,25,47,.06)",marginBottom:"24px"}}>
+              <span style={{position:"relative",display:"flex",width:"8px",height:"8px"}}>
+                <span className="ping" style={{position:"absolute",inset:0,borderRadius:"50%",background:"#4ADE80",opacity:.75}}/>
+                <span style={{position:"relative",width:"8px",height:"8px",borderRadius:"50%",background:"#22C55E",display:"block"}}/>
+              </span>
+              <span style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",opacity:.55,color:"#0A192F"}}>Précision FinTech</span>
+            </div>
 
-        {/* Hero */}
-        <div style={{textAlign:"center",marginBottom:"48px",position:"relative",zIndex:1}} className="fade-up">
-          {/* Badge */}
-          <div style={{display:"inline-flex",alignItems:"center",gap:"8px",padding:"4px 12px",background:C.white,border:`1px solid ${C.border}`,borderRadius:"999px",boxShadow:"0 1px 4px rgba(10,25,47,.06)",marginBottom:"20px"}}>
-            <span style={{position:"relative",display:"flex",width:"8px",height:"8px"}}>
-              <span className="ping" style={{position:"absolute",inset:0,borderRadius:"50%",background:"#4ADE80",opacity:.75}}/>
-              <span style={{position:"relative",width:"8px",height:"8px",borderRadius:"50%",background:"#22C55E",display:"block"}}/>
-            </span>
-            <span style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",opacity:.6}}>Précision FinTech</span>
+            <h1 style={{fontSize:"clamp(3.5rem,8vw,6.5rem)",fontWeight:900,letterSpacing:"-0.04em",lineHeight:.92,margin:"0 auto 20px"}}>
+              Qui voulez-vous{" "}
+              <span style={{WebkitTextStroke:"2px #0A192F",color:"transparent"}}>quitter</span>
+              {" "}?
+            </h1>
+            <p style={{fontSize:"clamp(1.05rem,2vw,1.3rem)",color:"#64748B",fontWeight:500,maxWidth:"600px",margin:"0 auto 40px",lineHeight:1.65}}>
+              Résiliation immédiate, légale et sans effort. On s'occupe de la paperasse, vous retrouvez votre liberté.
+            </p>
+
+            {/* Search bar — large, centered */}
+            <div style={{maxWidth:"680px",margin:"0 auto"}}>
+              <div className="search-box" style={{display:"flex",alignItems:"center",background:"white",border:"1px solid #E2E8F0",borderRadius:"18px",padding:"8px 8px 8px 28px",boxShadow:"0 4px 24px rgba(10,25,47,.07)"}}>
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#CBD5E1" strokeWidth="2" style={{flexShrink:0}}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input
+                  placeholder="Chercher une salle, un opérateur, une assurance..."
+                  onKeyDown={e=>{ if(e.key==="Enter") setView("catalogue"); }}
+                  style={{flex:1,padding:"14px 16px",fontSize:"16px",outline:"none",background:"transparent",border:"none",fontWeight:500,color:"#0A192F",fontFamily:"inherit"}}
+                />
+                <button
+                  className="btn-shimmer"
+                  onClick={()=>setView("catalogue")}
+                  style={{padding:"14px 28px",background:"#0A192F",color:"white",borderRadius:"12px",border:"none",fontWeight:700,letterSpacing:"0.15em",textTransform:"uppercase",fontSize:"11px",cursor:"pointer",fontFamily:"inherit"}}
+                >
+                  Identifier
+                </button>
+              </div>
+            </div>
           </div>
-
-          <h1 style={{fontSize:"clamp(3rem,8vw,5.5rem)",fontWeight:900,letterSpacing:"-0.04em",lineHeight:.95,maxWidth:"760px",margin:"0 auto 16px"}}>
-            Qui voulez-vous{" "}
-            <span style={{WebkitTextStroke:`1.5px ${C.navy}`,color:"transparent"}}>quitter</span>
-            {" "}?
-          </h1>
-          <p style={{fontSize:"clamp(1rem,2vw,1.25rem)",color:C.slate,fontWeight:500,maxWidth:"560px",margin:"0 auto",lineHeight:1.6}}>
-            Résiliation immédiate, légale et sans effort. On s'occupe de la paperasse, vous retrouvez votre liberté.
-          </p>
         </div>
 
-        {/* Search + Grid */}
-        <div style={{width:"100%",maxWidth:"680px",position:"relative",zIndex:1}}>
-          {/* Search bar */}
-          <div className="search-box" style={{display:"flex",alignItems:"center",background:C.white,border:`1px solid ${C.border}`,borderRadius:"16px",padding:"8px 8px 8px 24px",transition:"all .3s",marginBottom:"48px"}}>
-            <span style={{color:"#CBD5E1",flexShrink:0}}><Icon d={P.search} s={24}/></span>
-            <input
-              value={search}
-              onChange={e=>setSearch(e.target.value)}
-              placeholder="Chercher une salle, un opérateur, une assurance..."
-              style={{flex:1,padding:"16px",fontSize:"18px",outline:"none",background:"transparent",border:"none",fontWeight:500,color:C.navy,fontFamily:"inherit"}}
-            />
+        {/* Featured 8 companies */}
+        <div style={{position:"relative",zIndex:1}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"24px"}}>
+            <div>
+              <p style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",color:"#94A3B8",marginBottom:"4px"}}>Les plus résiliés</p>
+              <h2 style={{fontSize:"1.4rem",fontWeight:900,color:"#0A192F",letterSpacing:"-0.03em"}}>Prestataires populaires</h2>
+            </div>
             <button
-              className="btn-shimmer"
-              style={{padding:"16px 32px",background:C.navy,color:"white",borderRadius:"12px",border:"none",fontWeight:700,letterSpacing:"0.15em",textTransform:"uppercase",fontSize:"11px",cursor:"pointer"}}
+              onClick={()=>setView("catalogue")}
+              style={{display:"flex",alignItems:"center",gap:"8px",padding:"10px 20px",borderRadius:"12px",border:"1.5px solid #E2E8F0",background:"white",color:"#64748B",fontSize:"13px",fontWeight:700,cursor:"pointer",fontFamily:"inherit",transition:"all .2s",whiteSpace:"nowrap"}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor="#0A192F";e.currentTarget.style.color="#0A192F";}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor="#E2E8F0";e.currentTarget.style.color="#64748B";}}
             >
-              Identifier
+              Voir tout le catalogue
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/></svg>
             </button>
           </div>
 
-          {/* Category filters */}
-          <div style={{display:"flex",gap:"8px",flexWrap:"wrap",justifyContent:"center",marginBottom:"28px",marginTop:"-20px"}}>
-            {ALL_CATS.map(c => {
-              const isA = cat === c;
+          {/* 4-column grid — 2 rows of 4 */}
+          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"16px",marginBottom:"24px"}}>
+            {featured.map(co => (
+              <CompanyCard
+                key={co.id}
+                co={co}
+                isSel={selected?.id===co.id}
+                onSelect={handleSelect}
+                logoErr={logoErr}
+                setLogoErr={setLogoErr}
+              />
+            ))}
+          </div>
+
+          {/* Category pills — quick access */}
+          <div style={{display:"flex",gap:"10px",flexWrap:"wrap",marginBottom:"32px"}}>
+            <span style={{fontSize:"12px",fontWeight:600,color:"#94A3B8",alignSelf:"center",marginRight:"4px"}}>Parcourir par :</span>
+            {ALL_CATS.filter(c=>c!=="Tous").map(c=>{
               const meta = CAT_META[c];
               return (
-                <button key={c} onClick={()=>{setCat(c);setShowAll(false);setSelected(null);}} style={{display:"flex",alignItems:"center",gap:"6px",padding:"7px 16px",borderRadius:"999px",cursor:"pointer",fontSize:"12px",fontWeight:700,border:`1.5px solid ${isA?C.navy:C.border}`,background:isA?C.navy:"white",color:isA?"white":C.slate,transition:"all .2s",fontFamily:"inherit",whiteSpace:"nowrap"}}>
-                  <span>{meta.emoji}</span>
-                  {c}
-                  {c !== "Tous" && (
-                    <span style={{fontSize:"10px",opacity:.6,fontWeight:600}}>{COMPANIES.filter(x=>x.cat===c).length}</span>
-                  )}
+                <button
+                  key={c}
+                  onClick={()=>setView("catalogue")}
+                  style={{display:"flex",alignItems:"center",gap:"6px",padding:"7px 16px",borderRadius:"999px",cursor:"pointer",fontSize:"12px",fontWeight:700,border:"1.5px solid #E2E8F0",background:"white",color:"#64748B",transition:"all .2s",fontFamily:"inherit",whiteSpace:"nowrap"}}
+                  onMouseEnter={e=>{e.currentTarget.style.borderColor="#0A192F";e.currentTarget.style.color="#0A192F";}}
+                  onMouseLeave={e=>{e.currentTarget.style.borderColor="#E2E8F0";e.currentTarget.style.color="#64748B";}}
+                >
+                  <span style={{display:"inline-block",width:"6px",height:"6px",borderRadius:"50%",background:meta.dot}}/> {c}
+                  <span style={{fontSize:"10px",opacity:.5}}>{COMPANIES.filter(x=>x.cat===c).length}</span>
                 </button>
               );
             })}
           </div>
-
-          {/* Provider grid */}
-          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"16px"}}>
-            {displayed.map(co => {
-              const isSel = selected?.id===co.id;
-              const hasLogo = co.logo && !logoErr[co.id];
-              const brandColor = co.color || "#64748B";
-              return (
-                <div
-                  key={co.id}
-                  className={`logo-card${isSel?" selected":""}`}
-                  onClick={()=>setSelected(s=>s?.id===co.id?null:co)}
-                  style={{padding:"20px 10px",borderRadius:"16px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"12px",background:"white",position:"relative",overflow:"hidden",minHeight:"110px"}}
-                >
-                  {isSel && <div className="scanner-line"/>}
-                  <div style={{height:"44px",width:"88px",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                    {hasLogo ? (
-                      <img
-                        src={co.logo}
-                        alt={co.nom}
-                        onError={()=>setLogoErr(e=>({...e,[co.id]:true}))}
-                        style={{maxHeight:"100%",maxWidth:"100%",objectFit:"contain",transition:"all .25s"}}
-                      />
-                    ) : (
-                      <div style={{width:"44px",height:"44px",borderRadius:"12px",background:isSel?`${brandColor}22`:`${brandColor}18`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"15px",fontWeight:900,color:isSel?brandColor:brandColor,border:`1px solid ${brandColor}30`}}>
-                        {co.nom.slice(0,2).toUpperCase()}
-                      </div>
-                    )}
-                  </div>
-                  <div style={{textAlign:"center"}}>
-                    <p style={{fontSize:"10px",fontWeight:800,textTransform:"uppercase",letterSpacing:"0.08em",color:isSel?"white":C.navy,lineHeight:1.2}}>{co.nom}</p>
-                    <p style={{fontSize:"9px",color:isSel?"rgba(255,255,255,.45)":C.muted,fontWeight:500,marginTop:"3px",display:"flex",alignItems:"center",justifyContent:"center",gap:"3px"}}>
-                      <span style={{display:"inline-block",width:"4px",height:"4px",borderRadius:"50%",background:isSel?"rgba(0,255,65,.6)":CAT_META[co.cat]?.dot||"#94A3B8"}}/>
-                      {co.cat}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Empty state */}
-          {filtered.length === 0 && (
-            <div style={{marginTop:"32px",textAlign:"center",padding:"48px 24px",border:`2px dashed ${C.border}`,borderRadius:"24px"}}>
-              <p style={{color:C.muted,fontWeight:500,fontStyle:"italic"}}>Aucun contrat trouvé pour "{search}".</p>
-              <button style={{marginTop:"16px",fontSize:"13px",fontWeight:700,textDecoration:"underline",textDecorationThickness:"2px",textUnderlineOffset:"4px",background:"none",border:"none",cursor:"pointer",color:C.navy}}>Ajouter un contrat manuellement</button>
-            </div>
-          )}
-
-          {/* Show all */}
-          {!search && cat === "Tous" && (
-            <div style={{textAlign:"center",marginTop:"20px"}}>
-              <button onClick={()=>setShowAll(v=>!v)} style={{background:"none",border:"none",cursor:"pointer",fontSize:"13px",color:C.slate,fontFamily:"inherit"}}>
-                {showAll
-                  ? "← Réduire le catalogue"
-                  : <span><span style={{opacity:.65}}>{COMPANIES.length - FEATURED.length} autres prestataires</span> — <span style={{fontWeight:700,color:C.navy,textDecoration:"underline",textUnderlineOffset:"3px"}}>Voir tout le catalogue ({COMPANIES.length}) →</span></span>
-                }
-              </button>
-            </div>
-          )}
-          {cat !== "Tous" && (
-            <div style={{textAlign:"center",marginTop:"12px"}}>
-              <p style={{fontSize:"12px",color:C.muted}}>{filtered.length} prestataire{filtered.length>1?"s":""} dans <strong style={{color:C.navy}}>{cat}</strong></p>
-            </div>
-          )}
 
           {/* Selected panel */}
           {selected && (
-            <div className="fade-up" style={{marginTop:"32px",background:C.navy,borderRadius:"20px",padding:"24px",position:"relative",overflow:"hidden",boxShadow:"0 24px 60px rgba(10,25,47,.4)"}}>
-              <div style={{position:"absolute",top:0,right:0,width:"200px",height:"200px",background:"radial-gradient(circle,rgba(0,255,65,.06),transparent 70%)",borderRadius:"50%",transform:"translate(30%,-30%)"}}/>
-              <div style={{position:"relative",zIndex:1}}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"16px"}}>
-                  <div style={{display:"flex",alignItems:"center",gap:"14px"}}>
-                    <div style={{width:"48px",height:"48px",borderRadius:"12px",background:"rgba(0,255,65,.1)",border:"1px solid rgba(0,255,65,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"16px",fontWeight:900,color:C.green}}>
-                      {selected.nom.slice(0,2).toUpperCase()}
-                    </div>
-                    <div>
-                      <p style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(255,255,255,.35)",marginBottom:"3px"}}>Cible sélectionnée</p>
-                      <h3 style={{fontSize:"1.2rem",fontWeight:900,color:"white",letterSpacing:"-0.03em"}}>{selected.nom}</h3>
-                    </div>
+            <div className="fade-up" style={{background:"#0A192F",borderRadius:"20px",padding:"28px 32px",position:"relative",overflow:"hidden",boxShadow:"0 24px 60px rgba(10,25,47,.35)"}}>
+              <div style={{position:"absolute",top:0,right:0,width:"300px",height:"300px",background:"radial-gradient(circle,rgba(0,255,65,.05),transparent 70%)",borderRadius:"50%",transform:"translate(30%,-30%)"}}/>
+              <div style={{position:"relative",zIndex:1,display:"flex",alignItems:"center",justifyContent:"space-between",gap:"24px",flexWrap:"wrap"}}>
+                <div style={{display:"flex",alignItems:"center",gap:"16px"}}>
+                  <div style={{width:"56px",height:"56px",borderRadius:"14px",background:"rgba(0,255,65,.08)",border:"1px solid rgba(0,255,65,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"18px",fontWeight:900,color:"#00FF41"}}>
+                    {selected.nom.slice(0,2).toUpperCase()}
                   </div>
-                  <button onClick={()=>setSelected(null)} style={{color:"rgba(255,255,255,.4)",background:"none",border:"1px solid rgba(255,255,255,.1)",borderRadius:"7px",padding:"6px",cursor:"pointer"}}>
-                    <Icon d={P.x} s={14}/>
+                  <div>
+                    <p style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",color:"rgba(255,255,255,.3)",marginBottom:"4px"}}>Cible sélectionnée</p>
+                    <h3 style={{fontSize:"1.4rem",fontWeight:900,color:"white",letterSpacing:"-0.03em"}}>{selected.nom}</h3>
+                    <p style={{fontSize:"12px",color:"rgba(255,255,255,.4)",marginTop:"2px"}}>{selected.cat}</p>
+                  </div>
+                </div>
+                <div style={{display:"flex",gap:"10px",alignItems:"center"}}>
+                  <button onClick={()=>setSelected(null)} style={{color:"rgba(255,255,255,.35)",background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",borderRadius:"8px",padding:"8px 14px",cursor:"pointer",fontSize:"12px",fontWeight:600,fontFamily:"inherit"}}>
+                    Annuler
+                  </button>
+                  <button
+                    onClick={()=>onSelect(selected)}
+                    style={{padding:"14px 32px",borderRadius:"12px",background:"#00FF41",color:"#0A192F",border:"none",cursor:"pointer",fontSize:"12px",fontWeight:900,letterSpacing:"0.15em",textTransform:"uppercase",fontFamily:"inherit",boxShadow:"0 8px 24px rgba(0,255,65,.4)",display:"flex",alignItems:"center",gap:"8px"}}
+                  >
+                    Initier la résiliation
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/></svg>
                   </button>
                 </div>
-                <button
-                  onClick={()=>onSelect(selected)}
-                  style={{width:"100%",padding:"14px",borderRadius:"12px",background:C.green,color:C.navy,border:"none",cursor:"pointer",fontSize:"11px",fontWeight:900,letterSpacing:"0.15em",textTransform:"uppercase",fontFamily:"inherit",boxShadow:"0 8px 24px rgba(0,255,65,.4)",display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}}
-                >
-                  Initier la résiliation <Icon d={P.right} s={14} w={2.5}/>
-                </button>
               </div>
             </div>
           )}
@@ -501,6 +513,123 @@ function PageLanding({ setView, onSelect }) {
 
       <FooterLanding currentStep={1}/>
       <TacticalLabels/>
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  PAGE CATALOGUE (tous les 52 prestataires)
+// ════════════════════════════════════════════════════════════════
+
+function PageCatalogue({ setView, onSelect }) {
+  const [search, setSearch] = useState("");
+  const [cat, setCat] = useState("Tous");
+  const [selected, setSelected] = useState(null);
+  const [logoErr, setLogoErr] = useState({});
+
+  const filtered = COMPANIES.filter(c => {
+    const mS = c.nom.toLowerCase().includes(search.toLowerCase());
+    const mC = cat === "Tous" || c.cat === cat;
+    return mS && mC;
+  });
+
+  const handleSelect = (co) => {
+    setSelected(s => s?.id===co.id ? null : co);
+  };
+
+  return (
+    <div className="noise" style={{minHeight:"100vh",background:"#F8FAFC"}}>
+      <Nav view="catalogue" setView={setView} resiliations={[]}/>
+      <div style={{maxWidth:"1280px",margin:"0 auto",padding:"3rem 48px 4rem"}}>
+        {/* Header */}
+        <div style={{marginBottom:"2rem"}}>
+          <button onClick={()=>setView("landing")} style={{display:"flex",alignItems:"center",gap:"6px",background:"none",border:"none",cursor:"pointer",fontSize:"13px",color:"#94A3B8",fontFamily:"inherit",marginBottom:"16px",padding:0}}>
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            Retour
+          </button>
+          <h1 style={{fontSize:"2.5rem",fontWeight:900,letterSpacing:"-0.04em",color:"#0A192F",marginBottom:"8px"}}>
+            Catalogue complet
+          </h1>
+          <p style={{fontSize:"15px",color:"#64748B"}}>{COMPANIES.length} prestataires référencés · Résiliation garantie</p>
+        </div>
+
+        {/* Search */}
+        <div style={{display:"flex",gap:"12px",marginBottom:"24px",alignItems:"center",flexWrap:"wrap"}}>
+          <div className="search-box" style={{flex:1,minWidth:"280px",display:"flex",alignItems:"center",background:"white",border:"1px solid #E2E8F0",borderRadius:"14px",padding:"8px 8px 8px 20px"}}>
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#CBD5E1" strokeWidth="2" style={{flexShrink:0}}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input
+              value={search}
+              onChange={e=>setSearch(e.target.value)}
+              placeholder={`Rechercher parmi ${COMPANIES.length} prestataires...`}
+              style={{flex:1,padding:"8px 12px",fontSize:"14px",outline:"none",background:"transparent",border:"none",fontWeight:500,color:"#0A192F",fontFamily:"inherit"}}
+            />
+            {search && <button onClick={()=>setSearch("")} style={{color:"#94A3B8",background:"none",border:"none",cursor:"pointer",padding:"4px"}}><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>}
+          </div>
+          <span style={{fontSize:"13px",color:"#94A3B8",whiteSpace:"nowrap"}}>{filtered.length} résultat{filtered.length>1?"s":""}</span>
+        </div>
+
+        {/* Category tabs */}
+        <div style={{display:"flex",gap:"8px",flexWrap:"wrap",marginBottom:"32px"}}>
+          {ALL_CATS.map(c=>{
+            const isA=cat===c;
+            const meta=CAT_META[c];
+            const count = c==="Tous" ? COMPANIES.length : COMPANIES.filter(x=>x.cat===c).length;
+            return (
+              <button key={c} onClick={()=>setCat(c)} style={{display:"flex",alignItems:"center",gap:"7px",padding:"9px 18px",borderRadius:"12px",cursor:"pointer",fontSize:"13px",fontWeight:700,border:`1.5px solid ${isA?"#0A192F":"#E2E8F0"}`,background:isA?"#0A192F":"white",color:isA?"white":"#64748B",transition:"all .2s",fontFamily:"inherit",whiteSpace:"nowrap"}}>
+                <span>{meta.emoji}</span>
+                {c}
+                <span style={{fontSize:"11px",fontWeight:600,opacity:.6}}>{count}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Grid */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(160px,1fr))",gap:"14px",marginBottom:"24px"}}>
+          {filtered.map(co=>(
+            <CompanyCard
+              key={co.id}
+              co={co}
+              isSel={selected?.id===co.id}
+              onSelect={handleSelect}
+              logoErr={logoErr}
+              setLogoErr={setLogoErr}
+            />
+          ))}
+        </div>
+
+        {filtered.length===0&&(
+          <div style={{textAlign:"center",padding:"64px 24px",border:"2px dashed #E2E8F0",borderRadius:"20px"}}>
+            <p style={{fontSize:"1.5rem",marginBottom:"12px"}}>🔍</p>
+            <p style={{fontWeight:700,color:"#0A192F",marginBottom:"6px"}}>Aucun prestataire pour "{search}"</p>
+            <button onClick={()=>setSearch("")} style={{fontSize:"13px",fontWeight:700,textDecoration:"underline",background:"none",border:"none",cursor:"pointer",color:"#0A192F",fontFamily:"inherit"}}>Effacer la recherche</button>
+          </div>
+        )}
+
+        {/* Selected panel */}
+        {selected && (
+          <div className="fade-up" style={{position:"sticky",bottom:"24px",background:"#0A192F",borderRadius:"20px",padding:"24px 32px",overflow:"hidden",boxShadow:"0 24px 60px rgba(10,25,47,.4)"}}>
+            <div style={{position:"absolute",top:0,right:0,width:"300px",height:"300px",background:"radial-gradient(circle,rgba(0,255,65,.05),transparent 70%)",borderRadius:"50%",transform:"translate(30%,-30%)"}}/>
+            <div style={{position:"relative",zIndex:1,display:"flex",alignItems:"center",justifyContent:"space-between",gap:"20px",flexWrap:"wrap"}}>
+              <div style={{display:"flex",alignItems:"center",gap:"14px"}}>
+                <div style={{width:"48px",height:"48px",borderRadius:"12px",background:"rgba(0,255,65,.08)",border:"1px solid rgba(0,255,65,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"15px",fontWeight:900,color:"#00FF41"}}>
+                  {selected.nom.slice(0,2).toUpperCase()}
+                </div>
+                <div>
+                  <p style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(255,255,255,.3)",marginBottom:"2px"}}>Cible sélectionnée</p>
+                  <h3 style={{fontSize:"1.15rem",fontWeight:900,color:"white",letterSpacing:"-0.03em"}}>{selected.nom}</h3>
+                </div>
+              </div>
+              <div style={{display:"flex",gap:"10px"}}>
+                <button onClick={()=>setSelected(null)} style={{color:"rgba(255,255,255,.4)",background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",borderRadius:"8px",padding:"8px 16px",cursor:"pointer",fontSize:"12px",fontWeight:600,fontFamily:"inherit"}}>Annuler</button>
+                <button onClick={()=>onSelect(selected)} style={{padding:"12px 28px",borderRadius:"10px",background:"#00FF41",color:"#0A192F",border:"none",cursor:"pointer",fontSize:"11px",fontWeight:900,letterSpacing:"0.15em",textTransform:"uppercase",fontFamily:"inherit",boxShadow:"0 8px 24px rgba(0,255,65,.4)"}}>
+                  Initier la résiliation →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -1239,6 +1368,7 @@ export default function App() {
     <>
       <style>{GLOBAL_CSS}</style>
       {view==="landing"   && <PageLanding    setView={setView} onSelect={handleSelect}/>}
+      {view==="catalogue"  && <PageCatalogue  setView={setView} onSelect={handleSelect}/>}
       {view==="comment"   && <PageComment    setView={setView}/>}
       {view==="tarifs"    && <PageTarifs     setView={setView}/>}
       {view==="securite"  && <PageSecurite   setView={setView}/>}
