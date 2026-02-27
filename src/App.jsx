@@ -7,9 +7,9 @@ import { useState, useEffect, useRef } from "react";
 const COMPANIES = [
   // ── Télécom ──────────────────────────────────────────────────
   { id:"tc-01", nom:"Orange",           cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg",                      color:"#FF6600" },
-  { id:"tc-02", nom:"SFR",              cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/b/be/SFR_logo.svg",                         color:"#E2001A" },
-  { id:"tc-03", nom:"Bouygues",         cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/c/ce/Bouygues_Telecom_2015.svg",            color:"#0097D6" },
-  { id:"tc-04", nom:"Free",             cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/b/bd/Free_logo.svg",                        color:"#CD1927" },
+  { id:"tc-02", nom:"SFR",              cat:"Télécom",   logo:"/logos/sfr.svg",                                                                            color:"#E2001A" },
+  { id:"tc-03", nom:"Bouygues",         cat:"Télécom",   logo:"/logos/bouygues.svg",                                                                       color:"#0097D6" },
+  { id:"tc-04", nom:"Free",             cat:"Télécom",   logo:"/logos/free.svg",                                                                           color:"#CD1927" },
   { id:"tc-05", nom:"Sosh",             cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/5/5d/Sosh_logo_2020.svg",                   color:"#FF6600" },
   { id:"tc-06", nom:"Red by SFR",       cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/fr/4/43/Red_by_SFR_Logo.svg",               color:"#E2001A" },
   { id:"tc-07", nom:"Coriolis",         cat:"Télécom",   logo:"https://cdn.brandfetch.io/coriolismobile.com/w/400/h/400",                     color:"#003087" },
@@ -137,7 +137,7 @@ const GLOBAL_CSS = `
   .logo-card img { filter: grayscale(80%); opacity: 0.65; transition: all 0.3s ease; }
   .logo-card:hover img { filter: grayscale(0%); opacity: 1; }
   .logo-card.selected { border-color: #0A192F !important; background: #0A192F !important; transform: translateY(-3px); }
-  .logo-card.selected img { filter: brightness(0) invert(1); opacity: 0.95; }
+  .logo-card.selected img { filter: none; opacity: 1; }
 
   /* Scanner animation */
   @keyframes scan {
@@ -330,35 +330,53 @@ function CompanyCard({ co, isSel, onSelect, logoErr, setLogoErr }) {
     <div
       className={`logo-card${isSel?" selected":""}`}
       onClick={()=>onSelect(co)}
-      style={{padding:"24px 16px",borderRadius:"18px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"14px",background:"white",position:"relative",overflow:"hidden",minHeight:"130px",cursor:"pointer"}}
+      style={{padding:"20px 14px",borderRadius:"18px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"12px",background:isSel?"#0A192F":"white",position:"relative",overflow:"hidden",minHeight:"130px",cursor:"pointer",border:`2px solid ${isSel?"#0A192F":"#E2E8F0"}`,transition:"all .3s cubic-bezier(.16,1,.3,1)",transform:isSel?"translateY(-4px)":"none",boxShadow:isSel?"0 16px 40px rgba(10,25,47,.28)":"0 2px 8px rgba(10,25,47,.04)"}}
     >
       {isSel && <div className="scanner-line"/>}
+      {/* Check badge */}
       {isSel && (
-        <div style={{position:"absolute",top:"10px",right:"10px",width:"20px",height:"20px",borderRadius:"50%",background:"#00FF41",display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <div style={{position:"absolute",top:"10px",right:"10px",width:"20px",height:"20px",borderRadius:"50%",background:"#00FF41",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,zIndex:2}}>
           <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="#0A192F" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
         </div>
       )}
-      <div style={{height:"52px",width:"100px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      {/* Logo container — toujours fond blanc pour que le logo soit visible */}
+      <div style={{width:"80px",height:"48px",display:"flex",alignItems:"center",justifyContent:"center",background:isSel?"rgba(255,255,255,0.95)":"transparent",borderRadius:"10px",padding:isSel?"8px":"0",transition:"all .25s"}}>
         {hasLogo ? (
           <img
             src={co.logo}
             alt={co.nom}
             onError={()=>setLogoErr(e=>({...e,[co.id]:true}))}
-            style={{maxHeight:"100%",maxWidth:"100%",objectFit:"contain",transition:"all .25s"}}
+            style={{maxHeight:"100%",maxWidth:"100%",objectFit:"contain"}}
           />
         ) : (
-          <div style={{width:"52px",height:"52px",borderRadius:"14px",background:`${brandColor}18`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"16px",fontWeight:900,color:brandColor,border:`1.5px solid ${brandColor}25`}}>
+          <div style={{width:"48px",height:"48px",borderRadius:"12px",background:`${brandColor}20`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"15px",fontWeight:900,color:brandColor,border:`1.5px solid ${brandColor}30`}}>
             {co.nom.slice(0,2).toUpperCase()}
           </div>
         )}
       </div>
       <div style={{textAlign:"center"}}>
         <p style={{fontSize:"11px",fontWeight:800,textTransform:"uppercase",letterSpacing:"0.06em",color:isSel?"white":"#0A192F",lineHeight:1.2}}>{co.nom}</p>
-        <p style={{fontSize:"9px",fontWeight:500,marginTop:"4px",display:"flex",alignItems:"center",justifyContent:"center",gap:"3px",color:isSel?"rgba(255,255,255,.45)":"#94A3B8"}}>
-          <span style={{display:"inline-block",width:"5px",height:"5px",borderRadius:"50%",background:isSel?"rgba(0,255,65,.7)":CAT_META[co.cat]?.dot||"#94A3B8"}}/>
+        <p style={{fontSize:"9px",fontWeight:500,marginTop:"4px",display:"flex",alignItems:"center",justifyContent:"center",gap:"3px",color:isSel?"rgba(255,255,255,.5)":"#94A3B8"}}>
+          <span style={{display:"inline-block",width:"5px",height:"5px",borderRadius:"50%",background:isSel?"#00FF41":CAT_META[co.cat]?.dot||"#94A3B8"}}/>
           {co.cat}
         </p>
       </div>
+    </div>
+  );
+}
+
+// Mini logo pour les panneaux de sélection
+function SelectedLogo({ co, size=48 }) {
+  const [err, setErr] = useState(false);
+  const brandColor = co?.color || "#64748B";
+  if (!co) return null;
+  return co.logo && !err ? (
+    <div style={{width:size+"px",height:size+"px",borderRadius:"12px",background:"white",display:"flex",alignItems:"center",justifyContent:"center",padding:"8px",flexShrink:0}}>
+      <img src={co.logo} alt={co.nom} onError={()=>setErr(true)} style={{maxWidth:"100%",maxHeight:"100%",objectFit:"contain"}}/>
+    </div>
+  ) : (
+    <div style={{width:size+"px",height:size+"px",borderRadius:"12px",background:`${brandColor}20`,border:`1.5px solid ${brandColor}35`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:Math.round(size*.3)+"px",fontWeight:900,color:brandColor,flexShrink:0}}>
+      {co.nom.slice(0,2).toUpperCase()}
     </div>
   );
 }
@@ -484,9 +502,7 @@ function PageLanding({ setView, onSelect }) {
               <div style={{position:"absolute",top:0,right:0,width:"300px",height:"300px",background:"radial-gradient(circle,rgba(0,255,65,.05),transparent 70%)",borderRadius:"50%",transform:"translate(30%,-30%)"}}/>
               <div style={{position:"relative",zIndex:1,display:"flex",alignItems:"center",justifyContent:"space-between",gap:"24px",flexWrap:"wrap"}}>
                 <div style={{display:"flex",alignItems:"center",gap:"16px"}}>
-                  <div style={{width:"56px",height:"56px",borderRadius:"14px",background:"rgba(0,255,65,.08)",border:"1px solid rgba(0,255,65,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"18px",fontWeight:900,color:"#00FF41"}}>
-                    {selected.nom.slice(0,2).toUpperCase()}
-                  </div>
+                  <SelectedLogo co={selected} size={56}/>
                   <div>
                     <p style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",color:"rgba(255,255,255,.3)",marginBottom:"4px"}}>Cible sélectionnée</p>
                     <h3 style={{fontSize:"1.4rem",fontWeight:900,color:"white",letterSpacing:"-0.03em"}}>{selected.nom}</h3>
@@ -612,9 +628,7 @@ function PageCatalogue({ setView, onSelect }) {
             <div style={{position:"absolute",top:0,right:0,width:"300px",height:"300px",background:"radial-gradient(circle,rgba(0,255,65,.05),transparent 70%)",borderRadius:"50%",transform:"translate(30%,-30%)"}}/>
             <div style={{position:"relative",zIndex:1,display:"flex",alignItems:"center",justifyContent:"space-between",gap:"20px",flexWrap:"wrap"}}>
               <div style={{display:"flex",alignItems:"center",gap:"14px"}}>
-                <div style={{width:"48px",height:"48px",borderRadius:"12px",background:"rgba(0,255,65,.08)",border:"1px solid rgba(0,255,65,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"15px",fontWeight:900,color:"#00FF41"}}>
-                  {selected.nom.slice(0,2).toUpperCase()}
-                </div>
+                <SelectedLogo co={selected} size={48}/>
                 <div>
                   <p style={{fontSize:"10px",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(255,255,255,.3)",marginBottom:"2px"}}>Cible sélectionnée</p>
                   <h3 style={{fontSize:"1.15rem",fontWeight:900,color:"white",letterSpacing:"-0.03em"}}>{selected.nom}</h3>
@@ -1199,7 +1213,7 @@ function ViewPricing({ company, form, setView, onSuccess, resiliations }) {
         <div style={{textAlign:"center",marginBottom:"2rem"}}><h2 style={{fontSize:"clamp(1.6rem,4vw,2.5rem)",fontWeight:900,letterSpacing:"-0.04em",color:C.navy,marginBottom:"8px"}}>Débloquez votre lettre</h2><p style={{fontSize:"14px",color:C.slate}}>Votre lettre sera prête en 30 secondes.</p></div>
         <div style={{background:C.navy,borderRadius:"14px",padding:"16px 20px",marginBottom:"2rem",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"12px"}}>
           <div style={{display:"flex",alignItems:"center",gap:"12px"}}>
-            <div style={{width:"38px",height:"38px",borderRadius:"10px",background:"rgba(0,255,65,.1)",border:"1px solid rgba(0,255,65,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"13px",fontWeight:900,color:C.green}}>{(company?.nom||"XX").slice(0,2).toUpperCase()}</div>
+            <SelectedLogo co={company} size={40}/>
             <div><p style={{fontSize:"12px",fontWeight:700,color:"white"}}>{company?.nom} — {motifObj?.label||"Résiliation"}</p><p style={{fontSize:"10px",color:"rgba(255,255,255,.45)"}}>{[form.prenom,form.nom].filter(Boolean).join(" ")} · Contrat {form.contrat||"—"}</p></div>
           </div>
           {annuel&&<div style={{textAlign:"right"}}><p style={{fontSize:"9px",fontWeight:700,letterSpacing:"0.15em",textTransform:"uppercase",color:C.green,marginBottom:"2px"}}>Économie potentielle</p><p style={{fontSize:"1.4rem",fontWeight:900,color:"white",letterSpacing:"-0.04em"}}>{annuel} € <span style={{fontSize:"11px",color:"rgba(255,255,255,.5)"}}>/an</span></p></div>}
