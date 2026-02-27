@@ -12,22 +12,22 @@ const COMPANIES = [
   { id:"tc-04", nom:"Free",             cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/b/bd/Free_logo.svg",                        color:"#CD1927" },
   { id:"tc-05", nom:"Sosh",             cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/5/5d/Sosh_logo_2020.svg",                   color:"#FF6600" },
   { id:"tc-06", nom:"Red by SFR",       cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/fr/4/43/Red_by_SFR_Logo.svg",               color:"#E2001A" },
-  { id:"tc-07", nom:"Coriolis",         cat:"Télécom",   logo:"https://www.google.com/s2/favicons?domain=coriolismobile.com&sz=256",                     color:"#003087" },
+  { id:"tc-07", nom:"Coriolis",         cat:"Télécom",   logo:"https://cdn.brandfetch.io/coriolismobile.com/w/400/h/400",                     color:"#003087" },
   { id:"tc-08", nom:"La Poste Mobile",  cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/7/72/La_Poste_logo.svg",                   color:"#FFBE00" },
-  { id:"tc-09", nom:"NordNet",          cat:"Télécom",   logo:"https://www.google.com/s2/favicons?domain=nordnet.fr&sz=256",                             color:"#0057A8" },
+  { id:"tc-09", nom:"NordNet",          cat:"Télécom",   logo:"https://cdn.brandfetch.io/nordnet.fr/w/400/h/400",                             color:"#0057A8" },
   { id:"tc-10", nom:"Canal+",           cat:"Télécom",   logo:"https://upload.wikimedia.org/wikipedia/commons/2/27/Canal%2B.svg",                        color:"#000000" },
 
   // ── Sport ────────────────────────────────────────────────────
   { id:"sp-01", nom:"Basic-Fit",        cat:"Sport",     logo:"https://upload.wikimedia.org/wikipedia/commons/4/4b/Basic-Fit_Logo.svg",                   color:"#FF6B00" },
-  { id:"sp-02", nom:"Fitness Park",     cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=fitnesspark.fr&sz=256",                         color:"#E31E24" },
-  { id:"sp-03", nom:"Keepcool",         cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=keepcool.fr&sz=256",                            color:"#00A8E0" },
+  { id:"sp-02", nom:"Fitness Park",     cat:"Sport",     logo:"https://cdn.brandfetch.io/fitnesspark.fr/w/400/h/400",                         color:"#E31E24" },
+  { id:"sp-03", nom:"Keepcool",         cat:"Sport",     logo:"https://cdn.brandfetch.io/keepcool.fr/w/400/h/400",                            color:"#00A8E0" },
   { id:"sp-04", nom:"Neoness",          cat:"Sport",     logo:"https://upload.wikimedia.org/wikipedia/fr/5/52/Logo_Neoness.png",                  color:"#E2001A" },
-  { id:"sp-05", nom:"L'Orange Bleue",   cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=lorangebleue.fr&sz=256",                        color:"#F47920" },
-  { id:"sp-06", nom:"Magic Form",       cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=magicform.fr&sz=256",                           color:"#7B2D8B" },
-  { id:"sp-07", nom:"Gigafit",          cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=gigafit.fr&sz=256",                             color:"#FF0000" },
-  { id:"sp-08", nom:"On Air Fitness",   cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=onairfitness.fr&sz=256",                        color:"#00BCD4" },
-  { id:"sp-09", nom:"Freeness",         cat:"Sport",     logo:"https://www.google.com/s2/favicons?domain=freeness.fr&sz=256",                            color:"#4CAF50" },
-  { id:"sp-10", nom:"Cercles de la Forme", cat:"Sport",  logo:"https://www.google.com/s2/favicons?domain=cerclesdelaforme.com&sz=256",                   color:"#1565C0" },
+  { id:"sp-05", nom:"L'Orange Bleue",   cat:"Sport",     logo:"https://cdn.brandfetch.io/lorangebleue.fr/w/400/h/400",                        color:"#F47920" },
+  { id:"sp-06", nom:"Magic Form",       cat:"Sport",     logo:"https://cdn.brandfetch.io/magicform.fr/w/400/h/400",                           color:"#7B2D8B" },
+  { id:"sp-07", nom:"Gigafit",          cat:"Sport",     logo:"https://cdn.brandfetch.io/gigafit.fr/w/400/h/400",                             color:"#FF0000" },
+  { id:"sp-08", nom:"On Air Fitness",   cat:"Sport",     logo:"https://cdn.brandfetch.io/onairfitness.fr/w/400/h/400",                        color:"#00BCD4" },
+  { id:"sp-09", nom:"Freeness",         cat:"Sport",     logo:"https://cdn.brandfetch.io/freeness.fr/w/400/h/400",                            color:"#4CAF50" },
+  { id:"sp-10", nom:"Cercles de la Forme", cat:"Sport",  logo:"https://cdn.brandfetch.io/cerclesdelaforme.com/w/400/h/400",                   color:"#1565C0" },
 
   // ── Assurance ────────────────────────────────────────────────
   { id:"as-01", nom:"AXA",              cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/9/94/AXA_Logo.svg",                         color:"#00008F" },
@@ -36,9 +36,9 @@ const COMPANIES = [
   { id:"as-04", nom:"Groupama",         cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Groupama_logo.svg",                    color:"#008A00" },
   { id:"as-05", nom:"MAIF",             cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/3/3d/Logo_MAIF.svg",                        color:"#E2001A" },
   { id:"as-06", nom:"MACIF",            cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/f/f9/Logo_MACIF.svg",                       color:"#E2001A" },
-  { id:"as-07", nom:"Matmut",           cat:"Assurance", logo:"https://www.google.com/s2/favicons?domain=matmut.fr&sz=256",                              color:"#009B77" },
-  { id:"as-08", nom:"Direct Assurance", cat:"Assurance", logo:"https://www.google.com/s2/favicons?domain=direct-assurance.fr&sz=256",                    color:"#E2001A" },
-  { id:"as-09", nom:"Amaguiz",          cat:"Assurance", logo:"https://www.google.com/s2/favicons?domain=amaguiz.com&sz=256",                            color:"#FF6600" },
+  { id:"as-07", nom:"Matmut",           cat:"Assurance", logo:"https://cdn.brandfetch.io/matmut.fr/w/400/h/400",                              color:"#009B77" },
+  { id:"as-08", nom:"Direct Assurance", cat:"Assurance", logo:"https://cdn.brandfetch.io/direct-assurance.fr/w/400/h/400",                    color:"#E2001A" },
+  { id:"as-09", nom:"Amaguiz",          cat:"Assurance", logo:"https://cdn.brandfetch.io/amaguiz.com/w/400/h/400",                            color:"#FF6600" },
   { id:"as-10", nom:"Alan",             cat:"Assurance", logo:"https://upload.wikimedia.org/wikipedia/commons/7/72/Alan_logo.svg",                        color:"#00D4B4" },
 
   // ── Énergie ──────────────────────────────────────────────────
@@ -49,11 +49,11 @@ const COMPANIES = [
   { id:"en-05", nom:"Vattenfall",       cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/5/5b/Vattenfall_logo.svg",                  color:"#006AC7" },
   { id:"en-06", nom:"Suez",             cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/1/17/Suez_logo.svg",                        color:"#009FE3" },
   { id:"en-07", nom:"Veolia",           cat:"Énergie",   logo:"https://upload.wikimedia.org/wikipedia/commons/9/95/Veolia_logo.svg",                      color:"#005F96" },
-  { id:"en-08", nom:"Sowee",            cat:"Énergie",   logo:"https://www.google.com/s2/favicons?domain=sowee.com&sz=256",                              color:"#00C1D4" },
+  { id:"en-08", nom:"Sowee",            cat:"Énergie",   logo:"https://cdn.brandfetch.io/sowee.com/w/400/h/400",                              color:"#00C1D4" },
 
   // ── Streaming & Presse ───────────────────────────────────────
   { id:"ps-01", nom:"Le Monde",         cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/f/fc/Le_Monde_logo.svg",                    color:"#1A1A1A" },
-  { id:"ps-02", nom:"Le Figaro",        cat:"Streaming", logo:"https://www.google.com/s2/favicons?domain=lefigaro.fr&sz=256",                            color:"#003878" },
+  { id:"ps-02", nom:"Le Figaro",        cat:"Streaming", logo:"https://cdn.brandfetch.io/lefigaro.fr/w/400/h/400",                            color:"#003878" },
   { id:"ps-03", nom:"L'Équipe",         cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/9/9d/L%27%C3%89quipe_logo.svg",            color:"#FFCC00" },
   { id:"ps-04", nom:"Netflix",          cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",                color:"#E50914" },
   { id:"ps-05", nom:"Disney+",          cat:"Streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",                   color:"#0063E5" },
@@ -63,8 +63,8 @@ const COMPANIES = [
 
   // ── Divers ───────────────────────────────────────────────────
   { id:"dv-01", nom:"Ulys / Vinci",     cat:"Divers",    logo:"https://upload.wikimedia.org/wikipedia/commons/b/b1/Vinci_logo.svg",                       color:"#E4002B" },
-  { id:"dv-02", nom:"Coyote",           cat:"Divers",    logo:"https://www.google.com/s2/favicons?domain=moncoyote.com&sz=256",                          color:"#FF6600" },
-  { id:"dv-03", nom:"Verisure",         cat:"Divers",    logo:"https://www.google.com/s2/favicons?domain=verisure.fr&sz=256",                            color:"#E2001A" },
+  { id:"dv-02", nom:"Coyote",           cat:"Divers",    logo:"https://cdn.brandfetch.io/moncoyote.com/w/400/h/400",                          color:"#FF6600" },
+  { id:"dv-03", nom:"Verisure",         cat:"Divers",    logo:"https://cdn.brandfetch.io/verisure.fr/w/400/h/400",                            color:"#E2001A" },
   { id:"dv-04", nom:"Nespresso",        cat:"Divers",    logo:"https://upload.wikimedia.org/wikipedia/commons/6/69/Nespresso-logo.svg",                   color:"#1A1A1A" },
 ];
 
